@@ -38,47 +38,6 @@ const pkg = require("../package.json");
 
 const args = process.argv.slice(2);
 
-// Handle --auth flag: standalone Device Flow authentication
-if (args.includes("--auth")) {
-  runAuthFlow().catch((error) => {
-    console.error("Authentication failed:", error.message);
-    process.exit(1);
-  });
-} else if (args.includes("--version") || args.includes("-v")) {
-  console.log(pkg.version);
-  process.exit(0);
-} else if (args.includes("--help") || args.includes("-h")) {
-  console.log(`
-GitScrum Studio MCP Server v${pkg.version}
-
-Usage:
-  npx -y @gitscrum-studio/mcp-server [options]
-
-Options:
-  --auth      Authenticate via Device Flow and print token
-  --version   Show version number
-  --help      Show this help message
-
-MCP Server:
-  Without options, starts the MCP server using stdio transport.
-  Configure in your AI client (Claude, Cursor, VS Code, etc.)
-
-Examples:
-  # Get token for SSE clients
-  npx -y @gitscrum-studio/mcp-server --auth
-
-  # Run as MCP server (normal mode)
-  npx -y @gitscrum-studio/mcp-server
-`);
-  process.exit(0);
-} else {
-  // Normal MCP server mode
-  main().catch((error) => {
-    console.error("Fatal error:", error);
-    process.exit(1);
-  });
-}
-
 // =============================================================================
 // AUTH FLOW (--auth flag)
 // =============================================================================
@@ -344,4 +303,45 @@ async function main(): Promise<void> {
   console.error(`  API:   ${process.env.GITSCRUM_API_URL || "https://services.gitscrum.com"}`);
   console.error(`  Auth:  ${client.isAuthenticated() ? "✓ Authenticated" : "✗ Not authenticated (use auth_login)"}`);
   console.error("");
+}
+
+// Handle --auth flag: standalone Device Flow authentication
+if (args.includes("--auth")) {
+  runAuthFlow().catch((error) => {
+    console.error("Authentication failed:", error.message);
+    process.exit(1);
+  });
+} else if (args.includes("--version") || args.includes("-v")) {
+  console.log(pkg.version);
+  process.exit(0);
+} else if (args.includes("--help") || args.includes("-h")) {
+  console.log(`
+GitScrum Studio MCP Server v${pkg.version}
+
+Usage:
+  npx -y @gitscrum-studio/mcp-server [options]
+
+Options:
+  --auth      Authenticate via Device Flow and print token
+  --version   Show version number
+  --help      Show this help message
+
+MCP Server:
+  Without options, starts the MCP server using stdio transport.
+  Configure in your AI client (Claude, Cursor, VS Code, etc.)
+
+Examples:
+  # Get token for SSE clients
+  npx -y @gitscrum-studio/mcp-server --auth
+
+  # Run as MCP server (normal mode)
+  npx -y @gitscrum-studio/mcp-server
+`);
+  process.exit(0);
+} else {
+  // Normal MCP server mode
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
 }
