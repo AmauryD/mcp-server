@@ -187,7 +187,7 @@ const taskHandlers: ActionHandlerMap<TaskArgs> = {
     // Accept both uuid and task_uuid (from context)
     const uuid = args.uuid || args.task_uuid;
     if (!uuid) return required("uuid");
-    const task = await client.getTask(uuid);
+    const task = await client.getTask(uuid, args.project_slug ?? "", args.company_slug ?? "");
     const taskData = task as Record<string, unknown>;
     const projectSlug = (taskData?.project as Record<string, unknown>)?.slug as string;
     const companySlug = (taskData?.company as Record<string, unknown>)?.slug as string;

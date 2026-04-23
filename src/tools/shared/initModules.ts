@@ -27,6 +27,7 @@ import { registerEpicTools, handleEpicTool } from '../epics.js';
 import { registerDiscussionTools, handleDiscussionTool } from '../discussions.js';
 import { registerActivityTools, handleActivityTool } from '../activity.js';
 import { registerBudgetTools, handleBudgetTool } from '../budget.js';
+import { registerTaskDetailTools, handleTaskDetailTool } from '../taskDetail.js';
 
 // ============================================================================
 // Tool Module Definitions
@@ -152,6 +153,12 @@ const budgetModule: ToolModule = {
   handles: ['budget'],
 };
 
+const taskDetailModule: ToolModule = {
+  tools: registerTaskDetailTools(),
+  handler: handleTaskDetailTool,
+  handles: ['task_detail'],
+};
+
 // ============================================================================
 // Initialize All Modules
 // ============================================================================
@@ -182,6 +189,7 @@ export function initializeToolModules(): void {
     discussionModule,
     activityModule,
     budgetModule,
+    taskDetailModule,
   ];
 
   for (const module of modules) {

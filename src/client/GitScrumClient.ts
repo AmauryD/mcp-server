@@ -18,7 +18,6 @@
 
 import { TokenManager } from "../auth/TokenManager.js";
 
-
 export interface ApiResponse<T> {
   data: T;
   meta?: {
@@ -582,8 +581,11 @@ export class GitScrumClient {
   /**
    * Get task details by UUID
    */
-  async getTask(uuid: string): Promise<unknown> {
-    const response = await this.get<{ data: unknown }>(`tasks/${uuid}`);
+  async getTask(uuid: string, projectSlug: string, companySlug: string): Promise<unknown> {
+    const response = await this.get<{ data: unknown }>(`tasks/${uuid}`, {
+      project_slug: projectSlug,
+      company_slug: companySlug,
+    });
     return response.data;
   }
 
@@ -1740,6 +1742,20 @@ export class GitScrumClient {
    */
   async updateComment(commentId: number, text: string): Promise<void> {
     await this.put(`comments/${commentId}`, { comment_text: text });
+  }
+
+  /**
+   * Get file attachments for a task
+   */
+  async getTaskAttachments(taskUuid: string, companySlug: string, projectSlug: string): Promise<unknown[]> {
+    const response = await this.get<{ data: unknown[] }>("attachments/", {
+      company_slug: companySlug,
+      project_slug: projectSlug,
+      attachmentable_type: "issues",
+      attachmentable_id: taskUuid,
+      page: 1,
+    });
+    return response.data;
   }
 
   // ============================================================================
