@@ -48,7 +48,7 @@ SSE-based server hosted on AWS. Just add URL + token to your AI client.
 **Self-hosted via npx.**
 
 ```bash
-npx -y @gitscrum-studio/mcp-server
+npx -y git@github.com:AmauryD/mcp-server.git
 ```
 
 Runs locally via stdio transport. Requires Node.js 18+.
@@ -95,7 +95,7 @@ Assistant: Generates a standup digest with completed work and blockers.
 ### Install
 
 ```bash
-npx -y @gitscrum-studio/mcp-server
+npx -y git@github.com:AmauryD/mcp-server.git
 ```
 
 ### Configure your client
@@ -113,7 +113,7 @@ Edit the configuration file:
   "mcpServers": {
     "gitscrum": {
       "command": "npx",
-      "args": ["-y", "@gitscrum-studio/mcp-server"]
+      "args": ["-y", "git@github.com:AmauryD/mcp-server.git"]
     }
   }
 }
@@ -130,7 +130,7 @@ Add to `.vscode/mcp.json` or your MCP settings:
   "servers": {
     "gitscrum": {
       "command": "npx",
-      "args": ["-y", "@gitscrum-studio/mcp-server"]
+      "args": ["-y", "git@github.com:AmauryD/mcp-server.git"]
     }
   }
 }
@@ -248,7 +248,7 @@ Found a vulnerability? Report privately to **security@gitscrum.com**.
 ## Development
 
 ```bash
-git clone https://github.com/gitscrum-core/mcp-server.git
+git clone https://github.com/AmauryD/mcp-server.git
 cd mcp-server
 npm install
 npm run build
